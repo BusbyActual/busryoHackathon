@@ -309,9 +309,9 @@ Stage.prototype.makeSynopsis = function() {
 
 function fightMe(creature){
    var lastManStanding = true;
-   var personDamage = 0;
+   var removeFallen =  all.stages[all.currentLocation].occupants;
    var person = all.user;
- 
+ 	
    var temp = 0;
    all.user.items.length > 0 ? personDamage=items[0].property : personDamage = 3;
    while(lastManStanding&&creature.health > 0){
@@ -326,24 +326,22 @@ function fightMe(creature){
    			person['health'] = temp;
 
    if(creature['health'] <= 0 && person['health'] <= 0){
-   		lastManStanding = false;
    		console.log("The hero " + person['name'] + ' fought valiantly and vanquished ' + creature['name'] +'. However, '
    		+ person['gender'] + ' fell in the duty of battle.' );
-   		all.stages[all.currentstage].occupants.splice(indexOfValue(creature),indexOfValue(creature) + 1);
-    	moveUser(all.currentLocation);
+   		removeFallen.splice(removeFallen.indexOf(creature),removeFallen.indexOf(creature) + 1);
     }else if (creature['health'] <= 0){
-    	lastManStanding = false;
-    	all.stages[all.currentstage].occupants.splice(indexOfValue(creature),indexOfValue(creature) + 1);
-    	moveUser(all.currentLocation);
+	 removeFallen.splice(removeFallen.indexOf(creature),removeFallen.indexOf(creature) + 1);
     	console.log('Glorious! Our hero has slain a ' + creature['name']);
     }else if (person['health'] <= 0){
-    	lastManStanding = false;
     	console.log('Our hero has fallen..');
     	// <PlayAgain?> have dialogue to reset game?
-    }else {
-    	lastManStanding = false;
     }
+    	//make combat per click
+    	lastManStanding = false;
+    
  }
+ 	//RefreshSprites
+ 	moveUser(all.currentLocation);
 }
 
 
