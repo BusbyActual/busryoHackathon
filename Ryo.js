@@ -448,11 +448,20 @@ function moveUser(location){
 //Penalty for tring to leave a room of monsters.
 function cantRunAway(){
 	//find a random monster near me
-	var randCreature =all.stages[all.currentLocation].occupants[getRandomArbitrary(0, all.stages[all.currentLocation].occupants.length)];
+	var persons = all.stages[all.currentLocation].occupants;
+	var monsters = [];
+	for(var i = 0; i < persons.length;i++){
+		if(persons[i] instanceof Creature){
+			monsters.push(persons[i]);
+		}
+	}
+	if(monsters.length > 0){
+	var randCreature =monsters[getRandomArbitrary(0,monsters.length)];
 	console.log('You are unable to leave unscathed. A ' + randCreature.description + ' ' + randCreature.type + ' '  + randCreature.name + ' attacks.');
 	all.user.health -= randCreature.damage;
 	console.log(all.user.name + ' takes '+ randCreature.damage +' damage.');
 	moveUser(all.currentLocation);
+  }
 }
 		
 	
