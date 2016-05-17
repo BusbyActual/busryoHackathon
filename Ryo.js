@@ -339,6 +339,8 @@ function fightMe(creature){
     	lastManStanding = false;
     	console.log('Our hero has fallen..');
     	// <PlayAgain?> have dialogue to reset game?
+    }else {
+    	lastManStanding = false;
     }
  }
 }
@@ -367,45 +369,88 @@ function randomObject(objectTemplate,objectProp){
 ///
 function moveUser(location){
 	all.currentLocation = location;
+	all.currentCreatures=[];
 	$('#options').html('');
 	$('#sidebar').html('');
 
 	for (var i = 1; i < stageVertices[all.currentLocation].length; i++) {
 		$('#options').append('<button type="button" id="move' + stageVertices[all.currentLocation][i] + '">Go to room ' + stageVertices[all.currentLocation][i] + '</button>');
 	}
+	var chanceToEscape = false;
+
+	var cantEscape = getRandomArbitrary(1, 100);
+	cantEscape > 10 ? chanceToEscape = true : chanceToEscape = chanceToEscape;
 
 	$('#move0').on('click', function() {
-		moveUser(0);
+		if(!chanceToEscape){
+			cantRunAway();
+		}else{
+			moveUser(0);
+		}
+		
 	});
 	$('#move1').on('click', function() {
-		moveUser(1);
+		if(!chanceToEscape){
+			cantRunAway();
+		}else{
+			moveUser(1);
+		}
 	});
 	$('#move2').on('click', function() {
-		moveUser(2);
+		if(!chanceToEscape){
+			cantRunAway();
+			moveUser(2);
+		}
 	});
 	$('#move3').on('click', function() {
-		moveUser(3);
+		if(!chanceToEscape){
+			cantRunAway();
+		}else{
+			moveUser(3);
+		}
 	});
 	$('#move4').on('click', function() {
-		moveUser(4);
+		if(!chanceToEscape){
+			cantRunAway();
+		}else{
+			moveUser(4);
+		}
 	});
 	$('#move5').on('click', function() {
-		moveUser(5);
-	});
+		if(!chanceToEscape){
+			cantRunAway();
+		}else{
+			moveUser(5);
+		}
+	});	
 	$('#move6').on('click', function() {
-		moveUser(6);
+		if(!chanceToEscape){
+			cantRunAway();
+		}else{
+			moveUser(6);
+		}
 		$('#text').prepend('<div class="alert alert-danger"><strong>WARNING!</strong> Once you enter the boss level, you cannot turn back!</div>');
 		$('#move7').text('Boss Level');
 	});
 	$('#move7').on('click', function() {
 		moveUser(7);
+		// added mechanism for healing when getting to final boss.
+		all.user.health = 20;
 	});
 
 	$('#text').html(all.stages[all.currentLocation].synopsis);
 
 	writeSidebar();
-	//$('#sidebar').append('<button type="button" id="move' + stageVertices[all.currentLocation][i] + '">Go to room ' + stageVertices[all.currentLocation][i] + '</button>');
 }	
+		
+	
+//Penalty for tring to leave a room of monsters.
+function cantRunAway(){
+	console.log('You are unable to leave unscathed.');
+	all.user.health -= 1;
+	console.log(all.user.name + ' takes 1 points of damage.');
+	moveUser(all.currentLocation);
+}
 		
 	
 	//<img class="clown" src="imgs/sprites/trans.png"/>
@@ -620,6 +665,7 @@ function randomGameStart() {
 	all.user.gender = prompt('Are you male or female?');
 	all.user.gender.toLowerCase();
 
+
 	//get a random number between 1 and 5
 	var avi = getRandomArbitrary(1,5);
 	//if the person is male, get his avatar from the male avatars (6-10)
@@ -631,6 +677,8 @@ function randomGameStart() {
 
 	//changed user to a Person (to add sprites easily);
 	all.user = new Person(all.user.name, all.user.gender, big, small);
+	all.user.health = 20;
+	all.user.damage = 2;
 	//var userStartingItems = new Item(randomObject(itemTemplate,name),randomObject(itemTemplate,type),randomObject(itemTemplate,description));
 	//all.user.items.push(
 	//Item (name, type, description) 
