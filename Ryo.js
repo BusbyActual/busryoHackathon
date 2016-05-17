@@ -465,17 +465,24 @@ function writeSidebar () {
 	$('#sidebar').html('');
 
 	//build table for user info
-	$('#sidebar').append('table class="sidebarTable"><tr><td></table>');
+	$('#sidebar').append('<table class="sidebarTable"><tr><td><strong>User:</strong></td></tr><tr><td class="sprite"><a id="fight' + i + '" href="javascript:void(0);">' + all.user.smallSprite + '</a></td><td colspan="2">' + all.user.name + '</td></tr><tr><td colspan="2">Health:</td></tr><tr><td colspan="2"><div class="progress"><div id="userHealth" class="progress-bar progress-bar-success" style="width: ' + (all.user.health/20 * 100) + '%"><span class="sr-only">40% Complete (success)</span></div></div></td></tr><tr><td style="height: 30px;"></td></tr></table>');		 +	$('#sidebar').append('table class="sidebarTable"><tr><td></table>');
+ 		
+ 	//check if user's health is too low		
+ 	if ((all.user.health/20 * 100) < 20) {		
+ 		$('#userHealth').removeClass('progress-bar-success progress-bar-warning progress-bar-danger').addClass('progress-bar-danger');		
+ 	} else if ((all.user.health/20 * 100) < 40) {		
+ 		$('#userHealth').removeClass('progress-bar-success progress-bar-warning progress-bar-danger').addClass('progress-bar-warning');		
+ 	}
 
 	//build table for all occupants
-	$('#sidebar').append('<table class="sidebarTable oocTable"></table>')
+	$('#sidebar').append('<table class="sidebarTable oocTable"><tr><td><strong>Occupants:</strong></td></tr></table>')
 	for (var i = 0; i < all.stages[all.currentLocation].occupants.length; i++) {
 		var items = all.stages[all.currentLocation].occupants[i];
 		if (items instanceof Person) {
-			$('.oocTable').append('<tr><td><a id="fight' + i + '" href="javascript:void(0);">' + items.smallSprite + '</a></td><td> ' + items.name + '</td></tr>');
+			$('.oocTable').append('<tr><td class="sprite"><a id="fight' + i + '" href="javascript:void(0);">' + items.smallSprite + '</a></td><td> ' + items.name + '</td></tr>');
 
 		} else {
-			$('.oocTable').append('<tr><td><a id="fight' + i + '" href="javascript:void(0);">' + items.smallSprite + '</a></td><td>' + items.type + ' ' + items.name + '</td></tr>');
+			$('.oocTable').append('<tr><td class="sprite"><a id="fight' + i + '" href="javascript:void(0);">' + items.smallSprite + '</a></td><td>' + items.type + ' ' + items.name + '</td></tr>');
 		}
 
 	}
@@ -668,7 +675,7 @@ function randomGameStart() {
 	console.log('random game started');
 	all.user.name = prompt('What\'s your name?');
 	all.user.gender = prompt('Are you male or female?');
-	all.user.gender.toLowerCase();
+	all.user.gender = all.user.gender.toLowerCase();
 
 
 	//get a random number between 1 and 5
