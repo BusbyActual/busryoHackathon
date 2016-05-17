@@ -311,13 +311,10 @@ function fightMe(creature){
    var lastManStanding = true;
    var personDamage = 0;
    var person = all.user;
-  // var Creature
-   //var person = { health: 20, damage: 4, name:'Busby'};
-   //creature fight info commented out - added dynamically in creature creation
-  //var creature = { health: 10, damage: 2,name:'BadMans'};
+ 
    var temp = 0;
    all.user.items.length > 0 ? personDamage=items[0].property : personDamage = 3;
-   while(lastManStanding){
+   while(lastManStanding&&creature.health > 0){
    			console.log(person['name'] + ' attacks ' + creature['name'] +' for ' + person['damage'] + ' damage.');
    			temp = creature['health'] - person['damage'];
    			console.log(creature['health'] + ' - ' + person['damage'] + ' = ' + temp);
@@ -379,7 +376,7 @@ function moveUser(location){
 	var chanceToEscape = false;
 
 	var cantEscape = getRandomArbitrary(1, 100);
-	cantEscape > 10 ? chanceToEscape = true : chanceToEscape = chanceToEscape;
+	cantEscape > 30 ? chanceToEscape = true : chanceToEscape = chanceToEscape;
 
 	$('#move0').on('click', function() {
 		if(!chanceToEscape){
@@ -446,9 +443,11 @@ function moveUser(location){
 	
 //Penalty for tring to leave a room of monsters.
 function cantRunAway(){
-	console.log('You are unable to leave unscathed.');
-	all.user.health -= 1;
-	console.log(all.user.name + ' takes 1 points of damage.');
+	//find a random monster near me
+	var randCreature =all.stages[all.currentLocation].occupants[getRandomArbitrary(0, all.stages[all.currentLocation].occupants.length)];
+	console.log('You are unable to leave unscathed. A ' + randCreature.description + ' ' + randCreature.type + ' '  + randCreature.name + ' attacks.');
+	all.user.health -= randCreature.damage;
+	console.log(all.user.name + ' takes '+ randCreature.damage +' damage.');
 	moveUser(all.currentLocation);
 }
 		
