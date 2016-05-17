@@ -46,3 +46,18 @@ body {
 	font-size: 11px;
 	font-family: Comic Sans MS;
 }
+
+.sidebarTable {
+	border-collapse: separate;
+	border-spacing: 5px;
+	width: 100%;
+}
+
+.sidebarTable td {
+	vertical-align: center;
+}
+
+.sidebarTable .sprite {
+	text-align: center;
+}
+
