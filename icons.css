@@ -1,0 +1,124 @@
+.bearBig {
+	background: url('imgs/sprites/sprites.png') no-repeat -1px -1px;
+	width: 128px;
+	height: 128px;
+}
+
+.clownBig {
+	background: url('imgs/sprites/sprites.png') no-repeat -144px -6px;
+	width: 128px;
+	height: 128px;
+}
+
+.rogueBig {
+	background: url('imgs/sprites/sprites.png') no-repeat -307px 0;
+	width: 123px;
+	height: 127px;
+}
+
+.programmerBig {
+	background: url('imgs/sprites/sprites.png') no-repeat -465px 0;
+	width: 128px;
+	height: 128px;
+}
+
+.cultistBig {
+	background: url('imgs/sprites/sprites.png') no-repeat -650px 0;
+	width: 90px;
+	height: 127px;
+}
+
+.warriorBig {
+	background: url('imgs/sprites/sprites.png') no-repeat -797px 0;
+	width: 112px;
+	height: 126px;
+}
+
+.rabbitBig {
+	background: url('imgs/sprites/sprites.png') no-repeat -966px 0;
+	width: 123px;
+	height: 125px;
+}
+
+.wizardBig {
+	background: url('imgs/sprites/sprites.png') no-repeat -1146px -6px;
+	width: 100px;
+	height: 128px;
+}
+
+.zombieBig {
+	background: url('imgs/sprites/sprites.png') no-repeat -15px -151px;
+	width: 98px;
+	height: 128px;
+}
+
+.kittenBig {
+	background: url('imgs/sprites/sprites.png') no-repeat -145px -151px;
+	width: 127px;
+	height: 119px;
+}
+
+
+
+
+
+.bearSmall {
+	background: url('imgs/sprites/sprites.png') no-repeat -176px -331px;
+	width: 64px;
+	height: 62px;
+}
+
+.clownSmall {
+	background: url('imgs/sprites/sprites.png') no-repeat -327px -331px;
+	width: 64px;
+	height: 64px;
+}
+
+.rogueSmall {
+	background: url('imgs/sprites/sprites.png') no-repeat -27px -443px;
+	width: 62px;
+	height: 64px;
+}
+
+.programmerSmall {
+	background: url('imgs/sprites/sprites.png') no-repeat -629px -333px;
+	width: 64px;
+	height: 64px;
+}
+
+.cultistSmall {
+	background: url('imgs/sprites/sprites.png') no-repeat -780px -329px;
+	width: 46px;
+	height: 64px;
+}
+
+.warriorSmall {
+	background: url('imgs/sprites/sprites.png') no-repeat -913px -329px;
+	width: 56px;
+	height: 64px;
+}
+
+.rabbitSmall {
+	background: url('imgs/sprites/sprites.png') no-repeat -1056px -329px;
+	width: 62px;
+	height: 63px;
+}
+
+.wizardSmall {
+	background: url('imgs/sprites/sprites.png') no-repeat -1205px -333px;
+	width: 50px;
+	height: 64px;
+}
+
+.zombieSmall {
+	background: url('imgs/sprites/sprites.png') no-repeat -39px -329px;
+	width: 50px;
+	height: 64px;
+}
+
+.kittenSmall {
+	background: url('imgs/sprites/sprites.png') no-repeat -478px -335px;
+	width: 64px;
+	height: 60px;
+}
+

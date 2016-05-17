@@ -1,0 +1,21 @@
+#header {
+	background-image: url('imgs/bgs/01.png');
+}
+
+#outerContainer {
+	background-color: #dfe2e5;
+}
+
+#headerBlend {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c1cbd6), color-stop(1, #dfe2e5));
+	background:-moz-linear-gradient(top, #c1cbd6 5%, #dfe2e5 100%);
+	background:-webkit-linear-gradient(top, #c1cbd6 5%, #dfe2e5 100%);
+	background:-o-linear-gradient(top, #c1cbd6 5%, #dfe2e5 100%);
+	background:-ms-linear-gradient(top, #c1cbd6 5%, #dfe2e5 100%);
+	background:linear-gradient(to bottom, #c1cbd6 5%, #dfe2e5 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c1cbd6', endColorstr='#dfe2e5',GradientType=0);
+	background-color:#c1cbd6;
+	display:inline-block;
+	width: 100%;
+	height: 50px;
+}

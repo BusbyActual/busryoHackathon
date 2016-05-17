@@ -1,0 +1,48 @@
+#background {
+	background-color: #454545;
+	width: 100%;
+}
+
+#header {
+	width: 990px;
+	height: 180px;
+	border: 1px solid #fff;
+}
+
+#outerContainer {
+	height: 100%;
+	max-width: 994px;
+	margin: 0 auto;
+	text-align: justify;
+	border: 2px solid #000;
+}
+
+#innerContainer {
+	max-width: 990px;
+	padding: 5%;
+	padding-top: 0%;
+	margin: 0 auto;
+	text-align: justify;
+	display: flex;
+	align-items: top;
+}
+
+body {
+	padding: 0;
+}
+
+#main {
+	width: 70%;
+	margin: 10px 3%;
+	align: top;
+	font-size: 13px;
+	font-family: Comic Sans MS;
+}
+
+#sidebar {
+	width: 25%;
+	margin: 10px 3%;
+	align: top;
+	font-size: 11px;
+	font-family: Comic Sans MS;
+}
