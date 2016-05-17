@@ -18,7 +18,7 @@ function fightMe(creature){
    //creature fight info commented out - added dynamically in creature creation
   //var creature = { health: 10, damage: 2,name:'BadMans'};
    var temp = 0;
-   all.user.item.length > 0 ? personDamage=item[0].property : personDamage = 3;
+   all.user.items.length > 0 ? personDamage=items[0].property : personDamage = 3;
    while(lastManStanding){
    			console.log(person['name'] + ' attacks ' + creature['name'] +' for ' + person['damage'] + ' damage.');
    			temp = creature['health'] - person['damage'];
@@ -105,17 +105,38 @@ function moveUser(location){
 
 	$('#text').html(all.stages[all.currentLocation].synopsis);
 
-	for (var i = 0; i < all.stages[all.currentLocation].occupants.length; i++) {
-		var items = all.stages[all.currentLocation].occupants[i];
-		for(var key in items){	
-		$('#sidebar').append(items[key]);
-	}
-	}
+	writeSidebar();
 	//$('#sidebar').append('<button type="button" id="move' + stageVertices[all.currentLocation][i] + '">Go to room ' + stageVertices[all.currentLocation][i] + '</button>');
 }	
 		
 	
 	//<img class="clown" src="imgs/sprites/trans.png"/>
+
+function writeSidebar () {
+	//clear the sidebar of any previous data
+	$('#sidebar').html('');
+
+	//build table for user info
+	$('#sidebar').append('table class="sidebarTable"><tr><td></table>');
+
+	//build table for all occupants
+	$('#sidebar').append('<table class="sidebarTable oocTable"></table>')
+	for (var i = 0; i < all.stages[all.currentLocation].occupants.length; i++) {
+		var items = all.stages[all.currentLocation].occupants[i];
+		$('.oocTable').append('<tr><td><a id="fight' + i + '" href="javascript:void(0);">' + items.smallSprite + '</a></td><td>' + items.type + ' ' + items.name + '</td></tr>');
+	}
+
+	$('#fight0').on('click', function() {
+		fightMe(all.stages[all.currentLocation].occupants[0]);
+	});
+	$('#fight1').on('click', function() {
+		fightMe(all.stages[all.currentLocation].occupants[1]);
+	});
+	$('#fight2').on('click', function() {
+		fightMe(all.stages[all.currentLocation].occupants[2]);
+	});
+}
+
 
 
 //create object constructors for all creatures, items, persons, and stages in the game
@@ -126,8 +147,8 @@ function Creature (name, type, description, health, damage) {
 	this.health = health;
 	this.damage = damage;
 	this.items = [];
-	this.smallSprite = '<img class="' + type + 'Small" src="imgs/sprites/trans.png"/>';
-	this.bigSprite = '<img class="' + type + 'Big" src="imgs/sprites/trans.png"/>';
+	this.smallSprite = '<img class="' + this.name + 'Small" src="imgs/sprites/trans.png"/>';
+	this.bigSprite = '<img class="' + this.name + 'Big" src="imgs/sprites/trans.png"/>';
 }
 
 function Boss (name, type, desc1, desc2) {
@@ -136,8 +157,8 @@ function Boss (name, type, desc1, desc2) {
 	this.description = [desc1, desc2];
 	this.health = 20;
 	this.damage = 3;
-	this.smallSprite = '<img class="' + type + 'Small" src="imgs/sprites/trans.png"/>';
-	this.bigSprite = '<img class="' + type + 'Big" src="imgs/sprites/trans.png"/>';
+	this.smallSprite = '<img class="' + this.name + 'Small" src="imgs/sprites/trans.png"/>';
+	this.bigSprite = '<img class="' + this.name + 'Big" src="imgs/sprites/trans.png"/>';
 }
 
 function Item (name, type, description) {
@@ -153,6 +174,8 @@ function Person (name, gender) {
 	this.health = 20;
 	this.items = [];
 	this.using = [];
+	this.smallSprite = '<img class="' + this.gender + 'Small" src="imgs/sprites/trans.png"/>';
+	this.bigSprite = '<img class="' + this.gender + 'Big" src="imgs/sprites/trans.png"/>';
 }
 
 function Stage (name, type, description, occupants) {
@@ -167,7 +190,7 @@ function Stage (name, type, description, occupants) {
 //create templates for all possible values for the different objects
 var creatureTemplate = {
 	name : ['zombie','bear','clown','rabbit','kitten','wizard','warrior','cultist','rogue','programmer'],
-	type : ['Water','Fire','Earth','Wind','Undead','Humanoid', 'Dwarf','Orc', 'beast','developer'],
+	type : ['Water','Fire','Earth','Wind','Undead','Humanoid', 'Dwarf','Orc', 'Beast','Developer'],
 	description : ['ancient','innocent','big','small','intelligent','rugged','renowned']
 };
 
@@ -578,8 +601,8 @@ function randomGameStart() {
 	console.log('random game started');
 	all.user.name = prompt('What\'s your name?');
 	all.user.gender = prompt('Are you male or female?');
-	all.user.health = 20;
-	all.user.items = [];
+	//changed user to a Person (to add sprites easily);
+	all.user = new Person(all.user.name, all.user.gender.toLowerCase());
 	//var userStartingItems = new Item(randomObject(itemTemplate,name),randomObject(itemTemplate,type),randomObject(itemTemplate,description));
 	//all.user.items.push(
 	//Item (name, type, description) 
