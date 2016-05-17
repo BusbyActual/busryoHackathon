@@ -43,7 +43,7 @@ function Person (name, gender, bigSprite, smallSprite) {
 	this.gender = gender;
 	this.bigSprite = bigSprite;
 	this.smallSprite = smallSprite;
-	this.health = 20;
+	this.health = 0;
 	this.items = [];
 	this.using = [];
 }
@@ -311,13 +311,10 @@ function fightMe(creature){
    var lastManStanding = true;
    var personDamage = 0;
    var person = all.user;
-  // var Creature
-   //var person = { health: 20, damage: 4, name:'Busby'};
-   //creature fight info commented out - added dynamically in creature creation
-  //var creature = { health: 10, damage: 2,name:'BadMans'};
+ 
    var temp = 0;
    all.user.items.length > 0 ? personDamage=items[0].property : personDamage = 3;
-   while(lastManStanding){
+   while(lastManStanding&&creature.health > 0){
    			console.log(person['name'] + ' attacks ' + creature['name'] +' for ' + person['damage'] + ' damage.');
    			temp = creature['health'] - person['damage'];
    			console.log(creature['health'] + ' - ' + person['damage'] + ' = ' + temp);
@@ -332,16 +329,24 @@ function fightMe(creature){
    		lastManStanding = false;
    		console.log("The hero " + person['name'] + ' fought valiantly and vanquished ' + creature['name'] +'. However, '
    		+ person['gender'] + ' fell in the duty of battle.' );
+   		all.stages[all.currentstage].occupants.splice(indexOfValue(creature),indexOfValue(creature) + 1);
+    	moveUser(all.currentLocation);
     }else if (creature['health'] <= 0){
     	lastManStanding = false;
+    	all.stages[all.currentstage].occupants.splice(indexOfValue(creature),indexOfValue(creature) + 1);
+    	moveUser(all.currentLocation);
     	console.log('Glorious! Our hero has slain a ' + creature['name']);
     }else if (person['health'] <= 0){
     	lastManStanding = false;
     	console.log('Our hero has fallen..');
     	// <PlayAgain?> have dialogue to reset game?
+    }else {
+    	lastManStanding = false;
     }
  }
 }
+
+
 
 //make ranmoizer 
 function getRandomArbitrary(min, max) {
@@ -367,45 +372,90 @@ function randomObject(objectTemplate,objectProp){
 ///
 function moveUser(location){
 	all.currentLocation = location;
+	all.currentCreatures=[];
 	$('#options').html('');
 	$('#sidebar').html('');
 
 	for (var i = 1; i < stageVertices[all.currentLocation].length; i++) {
 		$('#options').append('<button type="button" id="move' + stageVertices[all.currentLocation][i] + '">Go to room ' + stageVertices[all.currentLocation][i] + '</button>');
 	}
+	var chanceToEscape = false;
+
+	var cantEscape = getRandomArbitrary(1, 100);
+	cantEscape > 30 ? chanceToEscape = true : chanceToEscape = chanceToEscape;
 
 	$('#move0').on('click', function() {
-		moveUser(0);
+		if(!chanceToEscape){
+			cantRunAway();
+		}else{
+			moveUser(0);
+		}
+		
 	});
 	$('#move1').on('click', function() {
-		moveUser(1);
+		if(!chanceToEscape){
+			cantRunAway();
+		}else{
+			moveUser(1);
+		}
 	});
 	$('#move2').on('click', function() {
-		moveUser(2);
+		if(!chanceToEscape){
+			cantRunAway();
+			moveUser(2);
+		}
 	});
 	$('#move3').on('click', function() {
-		moveUser(3);
+		if(!chanceToEscape){
+			cantRunAway();
+		}else{
+			moveUser(3);
+		}
 	});
 	$('#move4').on('click', function() {
-		moveUser(4);
+		if(!chanceToEscape){
+			cantRunAway();
+		}else{
+			moveUser(4);
+		}
 	});
 	$('#move5').on('click', function() {
-		moveUser(5);
-	});
+		if(!chanceToEscape){
+			cantRunAway();
+		}else{
+			moveUser(5);
+		}
+	});	
 	$('#move6').on('click', function() {
-		moveUser(6);
+		if(!chanceToEscape){
+			cantRunAway();
+		}else{
+			moveUser(6);
+		}
 		$('#text').prepend('<div class="alert alert-danger"><strong>WARNING!</strong> Once you enter the boss level, you cannot turn back!</div>');
 		$('#move7').text('Boss Level');
 	});
 	$('#move7').on('click', function() {
 		moveUser(7);
+		// added mechanism for healing when getting to final boss.
+		all.user.health = 20;
 	});
 
 	$('#text').html(all.stages[all.currentLocation].synopsis);
 
 	writeSidebar();
-	//$('#sidebar').append('<button type="button" id="move' + stageVertices[all.currentLocation][i] + '">Go to room ' + stageVertices[all.currentLocation][i] + '</button>');
 }	
+		
+	
+//Penalty for tring to leave a room of monsters.
+function cantRunAway(){
+	//find a random monster near me
+	var randCreature =all.stages[all.currentLocation].occupants[getRandomArbitrary(0, all.stages[all.currentLocation].occupants.length)];
+	console.log('You are unable to leave unscathed. A ' + randCreature.description + ' ' + randCreature.type + ' '  + randCreature.name + ' attacks.');
+	all.user.health -= randCreature.damage;
+	console.log(all.user.name + ' takes '+ randCreature.damage +' damage.');
+	moveUser(all.currentLocation);
+}
 		
 	
 	//<img class="clown" src="imgs/sprites/trans.png"/>
@@ -415,24 +465,17 @@ function writeSidebar () {
 	$('#sidebar').html('');
 
 	//build table for user info
-	$('#sidebar').append('<table class="sidebarTable"><tr><td><strong>User:</strong></td></tr><tr><td class="sprite"><a id="fight' + i + '" href="javascript:void(0);">' + all.user.smallSprite + '</a></td><td colspan="2">' + all.user.name + '</td></tr><tr><td colspan="2">Health:</td></tr><tr><td colspan="2"><div class="progress"><div id="userHealth" class="progress-bar progress-bar-success" style="width: ' + (all.user.health/20 * 100) + '%"><span class="sr-only">40% Complete (success)</span></div></div></td></tr><tr><td style="height: 30px;"></td></tr></table>');
-
-	//check if user's health is too low
-	if ((all.user.health/20 * 100) < 20) {
-		$('#userHealth').removeClass('progress-bar-success progress-bar-warning progress-bar-danger').addClass('progress-bar-danger');
-	} else if ((all.user.health/20 * 100) < 40) {
-		$('#userHealth').removeClass('progress-bar-success progress-bar-warning progress-bar-danger').addClass('progress-bar-warning');
-	}
+	$('#sidebar').append('table class="sidebarTable"><tr><td></table>');
 
 	//build table for all occupants
-	$('#sidebar').append('<table class="sidebarTable oocTable"><tr><td><strong>Occupants:</strong></td></tr></table>')
+	$('#sidebar').append('<table class="sidebarTable oocTable"></table>')
 	for (var i = 0; i < all.stages[all.currentLocation].occupants.length; i++) {
 		var items = all.stages[all.currentLocation].occupants[i];
 		if (items instanceof Person) {
-			$('.oocTable').append('<tr><td class="sprite"><a id="fight' + i + '" href="javascript:void(0);">' + items.smallSprite + '</a></td><td> ' + items.name + '</td></tr>');
+			$('.oocTable').append('<tr><td><a id="fight' + i + '" href="javascript:void(0);">' + items.smallSprite + '</a></td><td> ' + items.name + '</td></tr>');
 
 		} else {
-			$('.oocTable').append('<tr><td class="sprite"><a id="fight' + i + '" href="javascript:void(0);">' + items.smallSprite + '</a></td><td>' + items.type + ' ' + items.name + '</td></tr>');
+			$('.oocTable').append('<tr><td><a id="fight' + i + '" href="javascript:void(0);">' + items.smallSprite + '</a></td><td>' + items.type + ' ' + items.name + '</td></tr>');
 		}
 
 	}
@@ -625,7 +668,8 @@ function randomGameStart() {
 	console.log('random game started');
 	all.user.name = prompt('What\'s your name?');
 	all.user.gender = prompt('Are you male or female?');
-	all.user.gender = all.user.gender.toLowerCase();
+	all.user.gender.toLowerCase();
+
 
 	//get a random number between 1 and 5
 	var avi = getRandomArbitrary(1,5);
@@ -638,6 +682,8 @@ function randomGameStart() {
 
 	//changed user to a Person (to add sprites easily);
 	all.user = new Person(all.user.name, all.user.gender, big, small);
+	all.user.health = 20;
+	all.user.damage = 2;
 	//var userStartingItems = new Item(randomObject(itemTemplate,name),randomObject(itemTemplate,type),randomObject(itemTemplate,description));
 	//all.user.items.push(
 	//Item (name, type, description) 
