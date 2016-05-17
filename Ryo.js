@@ -9,136 +9,6 @@ var all = {
 var stageVertices = [[0,1,2],[1,0,4],[2,0],[3,2,1],[4,0,1,5],[5,4,6],[6,5,7],[7]];
 //create object constructors for all creatures, items, persons, and stages in the game
 
-function fightMe(creature){
-   var lastManStanding = true;
-   var personDamage = 0;
-   var person = all.user;
-  // var Creature
-   //var person = { health: 20, damage: 4, name:'Busby'};
-   //creature fight info commented out - added dynamically in creature creation
-  //var creature = { health: 10, damage: 2,name:'BadMans'};
-   var temp = 0;
-   all.user.items.length > 0 ? personDamage=items[0].property : personDamage = 3;
-   while(lastManStanding){
-   			console.log(person['name'] + ' attacks ' + creature['name'] +' for ' + person['damage'] + ' damage.');
-   			temp = creature['health'] - person['damage'];
-   			console.log(creature['health'] + ' - ' + person['damage'] + ' = ' + temp);
-   			creature['health'] = temp;
-
-   			console.log(creature['name'] + ' attacks ' + person['name'] +' for ' + creature['damage'] + ' damage.');
-   			temp = person['health'] - creature['damage'];
-   			console.log(person['health'] + ' - ' + creature['damage'] + ' = ' + temp);
-   			person['health'] = temp;
-
-   if(creature['health'] <= 0 && person['health'] <= 0){
-   		lastManStanding = false;
-   		console.log("The hero " + person['name'] + ' fought valiantly and vanquished ' + creature['name'] +'. However, '
-   		+ person['gender'] + ' fell in the duty of battle.' );
-    }else if (creature['health'] <= 0){
-    	lastManStanding = false;
-    	console.log('Glorious! Our hero has slain a ' + creature['name']);
-    }else if (person['health'] <= 0){
-    	lastManStanding = false;
-    	console.log('Our hero has fallen..');
-    	// <PlayAgain?> have dialogue to reset game?
-    }
- }
-}
-
-//make ranmoizer 
-function getRandomArbitrary(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-}
-
-//make helper function to iterate over arrays
-function randomArrayElement(array){
-	var index = getRandomArbitrary(0,array.length);
-	return array[index];
-}
-
-// specify object and property we want randomized.
-function randomObject(objectTemplate,objectProp){
-	var value ='';
-	var objectProp = objectTemplate[objectProp];
-  		
-		return	objectTemplate.objectProp > 0 ? value = randomArrayElement(objectProp) : value = value;  		 
-}
-
-
-
-///
-function moveUser(location){
-	all.currentLocation = location;
-	$('#options').html('');
-	$('#sidebar').html('');
-
-	for (var i = 1; i < stageVertices[all.currentLocation].length; i++) {
-		$('#options').append('<button type="button" id="move' + stageVertices[all.currentLocation][i] + '">Go to room ' + stageVertices[all.currentLocation][i] + '</button>');
-	}
-
-	$('#move0').on('click', function() {
-		moveUser(0);
-	});
-	$('#move1').on('click', function() {
-		moveUser(1);
-	});
-	$('#move2').on('click', function() {
-		moveUser(2);
-	});
-	$('#move3').on('click', function() {
-		moveUser(3);
-	});
-	$('#move4').on('click', function() {
-		moveUser(4);
-	});
-	$('#move5').on('click', function() {
-		moveUser(5);
-	});
-	$('#move6').on('click', function() {
-		moveUser(6);
-		$('#text').prepend('<div class="alert alert-danger"><strong>WARNING!</strong> Once you enter the boss level, you cannot turn back!</div>');
-		$('#move7').text('Boss Level');
-	});
-	$('#move7').on('click', function() {
-		moveUser(7);
-	});
-
-	$('#text').html(all.stages[all.currentLocation].synopsis);
-
-	writeSidebar();
-	//$('#sidebar').append('<button type="button" id="move' + stageVertices[all.currentLocation][i] + '">Go to room ' + stageVertices[all.currentLocation][i] + '</button>');
-}	
-		
-	
-	//<img class="clown" src="imgs/sprites/trans.png"/>
-
-function writeSidebar () {
-	//clear the sidebar of any previous data
-	$('#sidebar').html('');
-
-	//build table for user info
-	$('#sidebar').append('table class="sidebarTable"><tr><td></table>');
-
-	//build table for all occupants
-	$('#sidebar').append('<table class="sidebarTable oocTable"></table>')
-	for (var i = 0; i < all.stages[all.currentLocation].occupants.length; i++) {
-		var items = all.stages[all.currentLocation].occupants[i];
-		$('.oocTable').append('<tr><td><a id="fight' + i + '" href="javascript:void(0);">' + items.smallSprite + '</a></td><td>' + items.type + ' ' + items.name + '</td></tr>');
-	}
-
-	$('#fight0').on('click', function() {
-		fightMe(all.stages[all.currentLocation].occupants[0]);
-	});
-	$('#fight1').on('click', function() {
-		fightMe(all.stages[all.currentLocation].occupants[1]);
-	});
-	$('#fight2').on('click', function() {
-		fightMe(all.stages[all.currentLocation].occupants[2]);
-	});
-}
-
-
-
 //create object constructors for all creatures, items, persons, and stages in the game
 function Creature (name, type, description, health, damage) {
 	this.name = name;
@@ -168,14 +38,14 @@ function Item (name, type, description) {
 	this.properties = this.addProperties();
 }
 
-function Person (name, gender) {
+function Person (name, gender, bigSprite, smallSprite) {
 	this.name = name;
 	this.gender = gender;
+	this.bigSprite = bigSprite;
+	this.smallSprite = smallSprite;
 	this.health = 20;
 	this.items = [];
 	this.using = [];
-	this.smallSprite = '<img class="' + this.gender + 'Small" src="imgs/sprites/trans.png"/>';
-	this.bigSprite = '<img class="' + this.gender + 'Big" src="imgs/sprites/trans.png"/>';
 }
 
 function Stage (name, type, description, occupants) {
@@ -185,41 +55,6 @@ function Stage (name, type, description, occupants) {
 	this.occupants = occupants; //should be an array
 	this.synopsis = ''; // to hold the ultimate synopsis of the room, after all values are set
 }
-
-
-//create templates for all possible values for the different objects
-var creatureTemplate = {
-	name : ['zombie','bear','clown','rabbit','kitten','wizard','warrior','cultist','rogue','programmer'],
-	type : ['Water','Fire','Earth','Wind','Undead','Humanoid', 'Dwarf','Orc', 'Beast','Developer'],
-	description : ['ancient','innocent','big','small','intelligent','rugged','renowned']
-};
-
-var bossTemplate = {
-	name : ['dragon', 'demon', 'mutation'],
-	type : ['great', 'massive', 'roaring', 'flaming', 'towering', 'terrifying'],
-	description : ['a lashing tail', 'burning eyes', 'rotting flesh', 'a humbling roar', '', 'terrifying']
-}
-
-var itemTemplate = {
-	name:['gold','ie6','tome','sword','map','rope','holy water','treasure','stuff'],
-	//maybe type can be added dynamically according to the name/description?
-	type: ['consumable','equiptment','currency','weapon'],
-	description: ['shiny','old','bloody','stained','magical'],
-	//properties could determine how good an item is at something, as per it's description and name
-	//commented out to be added later
-	properties: [] //Not sure about this one. We can do some sort of ammount? 
-};
-
-var stageTemplate = {
-	name:['house','space ship','dungeon','cave','castle','labyrinth','city','park'],
-	type:['ornate','mystic','gloomy','rustic','metalic','stone','alien'],
-	description:['unfamilliar to you','chaotic','jurrasic','']
-};
-
-var personTemplate = {
-	name:['billy','susie','stan','George R.R. Martin','Busby','he who shall not be named','mr.Rogers'],
-	gender:['male','female']
-};
 
 
 //create any methods needed by the object constructors
@@ -470,6 +305,177 @@ Stage.prototype.makeSynopsis = function() {
 	})
 }
 
+
+
+function fightMe(creature){
+   var lastManStanding = true;
+   var personDamage = 0;
+   var person = all.user;
+  // var Creature
+   //var person = { health: 20, damage: 4, name:'Busby'};
+   //creature fight info commented out - added dynamically in creature creation
+  //var creature = { health: 10, damage: 2,name:'BadMans'};
+   var temp = 0;
+   all.user.items.length > 0 ? personDamage=items[0].property : personDamage = 3;
+   while(lastManStanding){
+   			console.log(person['name'] + ' attacks ' + creature['name'] +' for ' + person['damage'] + ' damage.');
+   			temp = creature['health'] - person['damage'];
+   			console.log(creature['health'] + ' - ' + person['damage'] + ' = ' + temp);
+   			creature['health'] = temp;
+
+   			console.log(creature['name'] + ' attacks ' + person['name'] +' for ' + creature['damage'] + ' damage.');
+   			temp = person['health'] - creature['damage'];
+   			console.log(person['health'] + ' - ' + creature['damage'] + ' = ' + temp);
+   			person['health'] = temp;
+
+   if(creature['health'] <= 0 && person['health'] <= 0){
+   		lastManStanding = false;
+   		console.log("The hero " + person['name'] + ' fought valiantly and vanquished ' + creature['name'] +'. However, '
+   		+ person['gender'] + ' fell in the duty of battle.' );
+    }else if (creature['health'] <= 0){
+    	lastManStanding = false;
+    	console.log('Glorious! Our hero has slain a ' + creature['name']);
+    }else if (person['health'] <= 0){
+    	lastManStanding = false;
+    	console.log('Our hero has fallen..');
+    	// <PlayAgain?> have dialogue to reset game?
+    }
+ }
+}
+
+//make ranmoizer 
+function getRandomArbitrary(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
+//make helper function to iterate over arrays
+function randomArrayElement(array){
+	var index = getRandomArbitrary(0,array.length);
+	return array[index];
+}
+
+// specify object and property we want randomized.
+function randomObject(objectTemplate,objectProp){
+	var value ='';
+	var objectProp = objectTemplate[objectProp];
+  		
+		return	objectTemplate.objectProp > 0 ? value = randomArrayElement(objectProp) : value = value;  		 
+}
+
+
+
+///
+function moveUser(location){
+	all.currentLocation = location;
+	$('#options').html('');
+	$('#sidebar').html('');
+
+	for (var i = 1; i < stageVertices[all.currentLocation].length; i++) {
+		$('#options').append('<button type="button" id="move' + stageVertices[all.currentLocation][i] + '">Go to room ' + stageVertices[all.currentLocation][i] + '</button>');
+	}
+
+	$('#move0').on('click', function() {
+		moveUser(0);
+	});
+	$('#move1').on('click', function() {
+		moveUser(1);
+	});
+	$('#move2').on('click', function() {
+		moveUser(2);
+	});
+	$('#move3').on('click', function() {
+		moveUser(3);
+	});
+	$('#move4').on('click', function() {
+		moveUser(4);
+	});
+	$('#move5').on('click', function() {
+		moveUser(5);
+	});
+	$('#move6').on('click', function() {
+		moveUser(6);
+		$('#text').prepend('<div class="alert alert-danger"><strong>WARNING!</strong> Once you enter the boss level, you cannot turn back!</div>');
+		$('#move7').text('Boss Level');
+	});
+	$('#move7').on('click', function() {
+		moveUser(7);
+	});
+
+	$('#text').html(all.stages[all.currentLocation].synopsis);
+
+	writeSidebar();
+	//$('#sidebar').append('<button type="button" id="move' + stageVertices[all.currentLocation][i] + '">Go to room ' + stageVertices[all.currentLocation][i] + '</button>');
+}	
+		
+	
+	//<img class="clown" src="imgs/sprites/trans.png"/>
+
+function writeSidebar () {
+	//clear the sidebar of any previous data
+	$('#sidebar').html('');
+
+	//build table for user info
+	$('#sidebar').append('table class="sidebarTable"><tr><td></table>');
+
+	//build table for all occupants
+	$('#sidebar').append('<table class="sidebarTable oocTable"></table>')
+	for (var i = 0; i < all.stages[all.currentLocation].occupants.length; i++) {
+		var items = all.stages[all.currentLocation].occupants[i];
+		if (items instanceof Person) {
+			$('.oocTable').append('<tr><td><a id="fight' + i + '" href="javascript:void(0);">' + items.smallSprite + '</a></td><td> ' + items.name + '</td></tr>');
+
+		} else {
+			$('.oocTable').append('<tr><td><a id="fight' + i + '" href="javascript:void(0);">' + items.smallSprite + '</a></td><td>' + items.type + ' ' + items.name + '</td></tr>');
+		}
+
+	}
+
+	$('#fight0').on('click', function() {
+		fightMe(all.stages[all.currentLocation].occupants[0]);
+	});
+	$('#fight1').on('click', function() {
+		fightMe(all.stages[all.currentLocation].occupants[1]);
+	});
+	$('#fight2').on('click', function() {
+		fightMe(all.stages[all.currentLocation].occupants[2]);
+	});
+}
+
+
+//create templates for all possible values for the different objects
+var creatureTemplate = {
+	name : ['zombie','bear','clown','rabbit','kitten','wizard','warrior','cultist','rogue','programmer'],
+	type : ['Water','Fire','Earth','Wind','Undead','Humanoid', 'Dwarf','Orc', 'Beast','Developer'],
+	description : ['ancient','innocent','big','small','intelligent','rugged','renowned']
+};
+
+var bossTemplate = {
+	name : ['dragon', 'demon', 'mutation'],
+	type : ['great', 'massive', 'roaring', 'flaming', 'towering', 'terrifying'],
+	description : ['a lashing tail', 'burning eyes', 'rotting flesh', 'a humbling roar', '', 'terrifying']
+}
+
+var itemTemplate = {
+	name:['gold','ie6','tome','sword','map','rope','holy water','treasure','stuff'],
+	//maybe type can be added dynamically according to the name/description?
+	type: ['consumable','equiptment','currency','weapon'],
+	description: ['shiny','old','bloody','stained','magical'],
+	//properties could determine how good an item is at something, as per it's description and name
+	//commented out to be added later
+	properties: [] //Not sure about this one. We can do some sort of ammount? 
+};
+
+var stageTemplate = {
+	name:['house','space ship','dungeon','cave','castle','labyrinth','city','park'],
+	type:['ornate','mystic','gloomy','rustic','metalic','stone','alien'],
+	description:['unfamilliar to you','chaotic','jurrasic','']
+};
+
+var personTemplate = {
+	name:['billy','susie','stan','George R.R. Martin','Busby','he who shall not be named','mr.Rogers'],
+	gender:['male','female']
+};
+
 //create any functions needed
 //create each
 function each (collection, iterator) {
@@ -509,7 +515,20 @@ function genStage() {
 		for (var i = 0; i < numThings; i++) {
 			//if a person is set to appear, generate the person first
 			if (!random) {
-				occ[i] = new Person(personTemplate.name[Math.floor((Math.random() * 100) * (personTemplate.name.length/100))], personTemplate.gender[Math.floor((Math.random() * 100) * (personTemplate.gender.length/100))]);
+				var name2 = personTemplate.name[Math.floor((Math.random() * 100) * (personTemplate.name.length/100))];
+				var gender2 = personTemplate.gender[Math.floor((Math.random() * 100) * (personTemplate.gender.length/100))]
+
+				//get a random number between 1 and 5
+				var avi = getRandomArbitrary(1,5);
+				//if the person is male, get his avatar from the male avatars (6-10)
+				gender2 === 'male' ? avi += 5 : avi;
+
+				//assign the sprites as per the random number
+				var big = '<img class="person' + avi + 'big" src="imgs/sprites/trans.png"/>'
+				var small = '<img class="person' + avi + 'small" src="imgs/sprites/trans.png"/>'
+
+
+				occ[i] = new Person(name2, gender2, big, small);
 				//change random so that a person will not be generated again
 				random = 1;
 			} else {
@@ -525,12 +544,10 @@ function genStage() {
 
 		//create a new stage with values generated above
 		var stage = new Stage(name, type, desc, occ);
-		console.log(stage);
 		//makeSynopsis needs to be debugged
 		stage.makeSynopsis();
 		all.stages.push(stage);
-		console.log(all.stages);
-		all.numStages--
+		//all.numStages--
 //	} else {
 //		console.log('ERROR: Out of stages to generate');
 //	}
@@ -601,8 +618,19 @@ function randomGameStart() {
 	console.log('random game started');
 	all.user.name = prompt('What\'s your name?');
 	all.user.gender = prompt('Are you male or female?');
+	all.user.gender.toLowerCase();
+
+	//get a random number between 1 and 5
+	var avi = getRandomArbitrary(1,5);
+	//if the person is male, get his avatar from the male avatars (6-10)
+	all.user.gender === 'male' ? avi += 5 : avi;
+
+	//assign the sprites as per the random number
+	var big = '<img class="person' + avi + 'big" src="imgs/sprites/trans.png"/>'
+	var small = '<img class="person' + avi + 'small" src="imgs/sprites/trans.png"/>'
+
 	//changed user to a Person (to add sprites easily);
-	all.user = new Person(all.user.name, all.user.gender.toLowerCase());
+	all.user = new Person(all.user.name, all.user.gender, big, small);
 	//var userStartingItems = new Item(randomObject(itemTemplate,name),randomObject(itemTemplate,type),randomObject(itemTemplate,description));
 	//all.user.items.push(
 	//Item (name, type, description) 

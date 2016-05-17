@@ -122,3 +122,127 @@
 	height: 60px;
 }
 
+
+
+.person1big {
+	background: url('imgs/sprites/sprites.png') no-repeat -15px -557px;
+	width: 116px;
+	height: 126px;
+}
+
+.person2big {
+	background: url('imgs/sprites/sprites.png') no-repeat -191px -557px;
+	width: 116px;
+	height: 126px;
+}
+
+.person3big {
+	background: url('imgs/sprites/sprites.png') no-repeat -377px -557px;
+	width: 106px;
+	height: 126px;
+}
+
+.person4big {
+	background: url('imgs/sprites/sprites.png') no-repeat -553px -557px;
+	width: 106px;
+	height: 126px;
+}
+
+.person5big {
+	background: url('imgs/sprites/sprites.png') no-repeat -729px -563px;
+	width: 98px;
+	height: 120px;
+}
+
+.person6big {
+	background: url('imgs/sprites/sprites.png') no-repeat -897px -557px;
+	width: 98px;
+	height: 124px;
+}
+
+.person7big {
+	background: url('imgs/sprites/sprites.png') no-repeat -1065px -563px;
+	width: 108px;
+	height: 120px;
+}
+
+.person8big {
+	background: url('imgs/sprites/sprites.png') no-repeat -20px -733px;
+	width: 106px;
+	height: 126px;
+}
+
+.person9big {
+	background: url('imgs/sprites/sprites.png') no-repeat -200px -744px;
+	width: 98px;
+	height: 120px;
+}
+
+.person10big {
+	background: url('imgs/sprites/sprites.png') no-repeat -374px -746px;
+	width: 112px;
+	height: 118px;
+}
+
+
+
+
+.person1small {
+	background: url('imgs/sprites/sprites.png') no-repeat -1158px -909px;
+	width: 58px;
+	height: 64px;
+}
+
+.person2small {
+	background: url('imgs/sprites/sprites.png') no-repeat -1029px -906px;
+	width: 58px;
+	height: 64px;
+}
+
+.person3small {
+	background: url('imgs/sprites/sprites.png') no-repeat -904px -905px;
+	width: 54px;
+	height: 64px;
+}
+
+.person4small {
+	background: url('imgs/sprites/sprites.png') no-repeat -779px -904px;
+	width: 54px;
+	height: 64px;
+}
+
+.person5small {
+	background: url('imgs/sprites/sprites.png') no-repeat -658px -907px;
+	width: 50px;
+	height: 61px;
+}
+
+.person6small {
+	background: url('imgs/sprites/sprites.png') no-repeat -537px -908px;
+	width: 50px;
+	height: 62px;
+}
+
+.person7small {
+	background: url('imgs/sprites/sprites.png') no-repeat -412px -909px;
+	width: 54px;
+	height: 60px;
+}
+
+.person8small {
+	background: url('imgs/sprites/sprites.png') no-repeat -287px -909px;
+	width: 54px;
+	height: 64px;
+}
+
+.person9small {
+	background: url('imgs/sprites/sprites.png') no-repeat -166px -909px;
+	width: 50px;
+	height: 60px;
+}
+
+.person10small {
+	background: url('imgs/sprites/sprites.png') no-repeat -39px -909px;
+	width: 56px;
+	height: 59px;
+}
