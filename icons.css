@@ -1,0 +1,248 @@
+.bearBig {
+	background: url('imgs/sprites/sprites.png') no-repeat -1px -1px;
+	width: 128px;
+	height: 128px;
+}
+
+.clownBig {
+	background: url('imgs/sprites/sprites.png') no-repeat -144px -6px;
+	width: 128px;
+	height: 128px;
+}
+
+.rogueBig {
+	background: url('imgs/sprites/sprites.png') no-repeat -307px 0;
+	width: 123px;
+	height: 127px;
+}
+
+.programmerBig {
+	background: url('imgs/sprites/sprites.png') no-repeat -465px 0;
+	width: 128px;
+	height: 128px;
+}
+
+.cultistBig {
+	background: url('imgs/sprites/sprites.png') no-repeat -650px 0;
+	width: 90px;
+	height: 127px;
+}
+
+.warriorBig {
+	background: url('imgs/sprites/sprites.png') no-repeat -797px 0;
+	width: 112px;
+	height: 126px;
+}
+
+.rabbitBig {
+	background: url('imgs/sprites/sprites.png') no-repeat -966px 0;
+	width: 123px;
+	height: 125px;
+}
+
+.wizardBig {
+	background: url('imgs/sprites/sprites.png') no-repeat -1146px -6px;
+	width: 100px;
+	height: 128px;
+}
+
+.zombieBig {
+	background: url('imgs/sprites/sprites.png') no-repeat -15px -151px;
+	width: 98px;
+	height: 128px;
+}
+
+.kittenBig {
+	background: url('imgs/sprites/sprites.png') no-repeat -145px -151px;
+	width: 127px;
+	height: 119px;
+}
+
+
+
+
+
+.bearSmall {
+	background: url('imgs/sprites/sprites.png') no-repeat -176px -331px;
+	width: 64px;
+	height: 62px;
+}
+
+.clownSmall {
+	background: url('imgs/sprites/sprites.png') no-repeat -327px -331px;
+	width: 64px;
+	height: 64px;
+}
+
+.rogueSmall {
+	background: url('imgs/sprites/sprites.png') no-repeat -27px -443px;
+	width: 62px;
+	height: 64px;
+}
+
+.programmerSmall {
+	background: url('imgs/sprites/sprites.png') no-repeat -629px -333px;
+	width: 64px;
+	height: 64px;
+}
+
+.cultistSmall {
+	background: url('imgs/sprites/sprites.png') no-repeat -780px -329px;
+	width: 46px;
+	height: 64px;
+}
+
+.warriorSmall {
+	background: url('imgs/sprites/sprites.png') no-repeat -913px -329px;
+	width: 56px;
+	height: 64px;
+}
+
+.rabbitSmall {
+	background: url('imgs/sprites/sprites.png') no-repeat -1056px -329px;
+	width: 62px;
+	height: 63px;
+}
+
+.wizardSmall {
+	background: url('imgs/sprites/sprites.png') no-repeat -1205px -333px;
+	width: 50px;
+	height: 64px;
+}
+
+.zombieSmall {
+	background: url('imgs/sprites/sprites.png') no-repeat -39px -329px;
+	width: 50px;
+	height: 64px;
+}
+
+.kittenSmall {
+	background: url('imgs/sprites/sprites.png') no-repeat -478px -335px;
+	width: 64px;
+	height: 60px;
+}
+
+
+
+.person1big {
+	background: url('imgs/sprites/sprites.png') no-repeat -15px -557px;
+	width: 116px;
+	height: 126px;
+}
+
+.person2big {
+	background: url('imgs/sprites/sprites.png') no-repeat -191px -557px;
+	width: 116px;
+	height: 126px;
+}
+
+.person3big {
+	background: url('imgs/sprites/sprites.png') no-repeat -377px -557px;
+	width: 106px;
+	height: 126px;
+}
+
+.person4big {
+	background: url('imgs/sprites/sprites.png') no-repeat -553px -557px;
+	width: 106px;
+	height: 126px;
+}
+
+.person5big {
+	background: url('imgs/sprites/sprites.png') no-repeat -729px -563px;
+	width: 98px;
+	height: 120px;
+}
+
+.person6big {
+	background: url('imgs/sprites/sprites.png') no-repeat -897px -557px;
+	width: 98px;
+	height: 124px;
+}
+
+.person7big {
+	background: url('imgs/sprites/sprites.png') no-repeat -1065px -563px;
+	width: 108px;
+	height: 120px;
+}
+
+.person8big {
+	background: url('imgs/sprites/sprites.png') no-repeat -20px -733px;
+	width: 106px;
+	height: 126px;
+}
+
+.person9big {
+	background: url('imgs/sprites/sprites.png') no-repeat -200px -744px;
+	width: 98px;
+	height: 120px;
+}
+
+.person10big {
+	background: url('imgs/sprites/sprites.png') no-repeat -374px -746px;
+	width: 112px;
+	height: 118px;
+}
+
+
+
+
+.person1small {
+	background: url('imgs/sprites/sprites.png') no-repeat -1158px -909px;
+	width: 58px;
+	height: 64px;
+}
+
+.person2small {
+	background: url('imgs/sprites/sprites.png') no-repeat -1029px -906px;
+	width: 58px;
+	height: 64px;
+}
+
+.person3small {
+	background: url('imgs/sprites/sprites.png') no-repeat -904px -905px;
+	width: 54px;
+	height: 64px;
+}
+
+.person4small {
+	background: url('imgs/sprites/sprites.png') no-repeat -779px -904px;
+	width: 54px;
+	height: 64px;
+}
+
+.person5small {
+	background: url('imgs/sprites/sprites.png') no-repeat -658px -907px;
+	width: 50px;
+	height: 61px;
+}
+
+.person6small {
+	background: url('imgs/sprites/sprites.png') no-repeat -537px -908px;
+	width: 50px;
+	height: 62px;
+}
+
+.person7small {
+	background: url('imgs/sprites/sprites.png') no-repeat -412px -909px;
+	width: 54px;
+	height: 60px;
+}
+
+.person8small {
+	background: url('imgs/sprites/sprites.png') no-repeat -287px -909px;
+	width: 54px;
+	height: 64px;
+}
+
+.person9small {
+	background: url('imgs/sprites/sprites.png') no-repeat -166px -909px;
+	width: 50px;
+	height: 60px;
+}
+
+.person10small {
+	background: url('imgs/sprites/sprites.png') no-repeat -39px -909px;
+	width: 56px;
+	height: 59px;
+}
